@@ -1,0 +1,7 @@
+---
+
+    - name: №7 Create symbolic links {{ url_jitsi_domain }}.conf
+      file:
+        src: /etc/apache2/sites-available/{{ url_jitsi_domain }}.conf
+        dest: /etc/apache2/sites-enabled/{{ url_jitsi_domain }}.conf
+        state: link

@@ -1,0 +1,10 @@
+---
+
+- name: 4-Update and upgrade all packages on servers
+  apt:
+    upgrade: yes
+    update_cache: yes
+    # name: "*"
+    #state: latest
+  delegate_to: "{{ item.ctip }}"             #was "{{ item.ctip }}"
+  with_items: "{{ containers }}"

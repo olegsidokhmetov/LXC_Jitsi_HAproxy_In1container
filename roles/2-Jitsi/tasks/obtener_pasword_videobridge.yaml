@@ -1,0 +1,21 @@
+---
+- hosts: videobridge
+  become: true
+  vars_files:
+    - /etc/ansible/roles/Jitsi/vars/main.yml
+  tasks:
+
+    - name: Obtener pasword videobridge 1
+      shell: grep PASSWORD /etc/jitsi/videobridge/sip-communicator.properties | cut -d '=' -f2
+      register: MYPASSWORD
+      when: inventory_hostname == "jitsi"
+
+    - debug:
+        msg: "{{ MYPASSWORD.stdout }}"
+      when: inventory_hostname == "jitsi"
+
+    - replace:
+        path: /etc/jitsi/videobridge/sip-communicator.properties
+        regexp: '{{ MYPASSWORD }}'
+        replace: '{{MYPASSWORD.stdout}}'
+      when: inventory_hostname == "jvb1"

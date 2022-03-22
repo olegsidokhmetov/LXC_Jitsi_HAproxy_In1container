@@ -1,0 +1,69 @@
+---
+
+    - name: №22 Create new configurationin file "js.quersys.com-config.js"
+      copy:
+        dest: "/etc/jitsi/meet/{{ url_jitsi_domain }}-config.js" 
+        content: |
+          var config = {
+              hosts: {
+                  domain: '{{ url_jitsi_domain }}',
+                  muc: 'conference.{{ url_jitsi_domain }}'
+              },
+              bosh: '//{{ url_jitsi_domain }}/http-bind',
+              testing: {
+                  p2pTestMode: false
+              },
+              enableNoAudioDetection: true,
+              enableNoisyMicDetection: true,
+              startWithVideoMuted: true,
+              channelLastN: -1,
+              requireDisplayName: true,
+              enableWelcomePage: true,
+              defaultLanguage: 'es',
+              prejoinPageEnabled: true,
+
+              toolbarButtons: [
+                  'camera',
+                  'chat',
+                  'closedcaptions',
+                  'desktop',
+                  'download',
+                  'embedmeeting',
+                  'etherpad',
+                  'feedback',
+                  'filmstrip',
+                  'fullscreen',
+                  'hangup',
+                  'help',
+                  'invite',
+                  'microphone',
+                  'mute-everyone',
+                  'mute-video-everyone',
+                  'participants-pane',
+                  'profile',
+                  'raisehand',
+                  'security',
+                  'select-background',
+                  'settings',
+                  'shortcuts',
+                  'stats',
+                  'tileview',
+                  'toggle-camera',
+                  'videoquality',
+                  '__end'
+              ],
+              p2p: {
+                  enabled: true,
+                  stunServers: [
+                      { urls: 'stun:turn.{{ url_jitsi_domain }}:3478' },
+                  ]
+              },
+              analytics: {
+              },
+              deploymentInfo: {
+              },
+              
+              mouseMoveCallbackInterval: 1000,
+            
+              makeJsonParserHappy: 'even if last key had a trailing comma'
+          };

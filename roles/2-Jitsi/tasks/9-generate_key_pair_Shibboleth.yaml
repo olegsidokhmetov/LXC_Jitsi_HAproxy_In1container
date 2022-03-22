@@ -1,0 +1,7 @@
+---
+
+    - name: №9 Generate a key pair for a Shibboleth sp-signing
+      shell: /usr/sbin/shib-keygen -f -u _shibd -g _shibd -h {{ url_jitsi_domain }} -y 10 -e https://{{ url_jitsi_domain }}/shibboleth -n sp-signing
+
+    - name: №9 Generate a key pair for a Shibboleth sp-encrypt
+      shell: /usr/sbin/shib-keygen -f -u _shibd -g _shibd -h {{ url_jitsi_domain }} -y 10 -e https://{{ url_jitsi_domain }}/shibboleth -n sp-encrypt

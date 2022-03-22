@@ -1,0 +1,24 @@
+---
+
+- hosts: devel-lxd01
+  gather_facts: false
+  become: true
+  vars_files:
+    - /etc/ansible/roles/1-pre_jitsi/vars/main.yml                #lxc
+    - /etc/ansible/roles/1-pre_jitsi/defaults/main.yml            #lxc
+    - /etc/ansible/roles/2-Jitsi/defaults/main.yml                #jitsi 
+    - /etc/ansible/roles/2-Jitsi/vars/main.yml                    #jitsi
+    - /etc/ansible/roles/3-post_jitsi/defaults/main.yml           #haproxy
+    - /etc/ansible/roles/3-post_jitsi/vars/main.yml               #haproxy
+
+  roles:
+  - role: "/etc/ansible/roles/1-pre_jitsi"                        #Creating LXC container with IP configuracion
+
+- hosts: Lxc
+  roles:
+  - role: "/etc/ansible/roles/2-Jitsi"
+
+- hosts: Lxc
+  gather_facts: true
+  roles:
+  - role: "/etc/ansible/roles/3-post_jitsi"

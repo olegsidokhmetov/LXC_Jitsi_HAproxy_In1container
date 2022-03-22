@@ -1,0 +1,23 @@
+---
+
+- name: 6-Configure keepalived
+  ansible.builtin.template:
+    src: /etc/ansible/roles/1-pre_jitsi/templates/{{ item.keeptype }}.yml.j2
+    dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: '0644'
+  delegate_to: "{{ item.name }}"
+  with_items: "{{ containers }}"
+
+- name: 6.1-Start keepalived
+  service:
+    name: keepalived
+    state: restarted
+    enabled: yes
+  delegate_to: "{{ item.name }}"
+  with_items: "{{ containers }}"
+
+- name: 6.2-Restart a container
+  shell: lxc restart {{ item.name }}
+  with_items: "{{ containers }}"

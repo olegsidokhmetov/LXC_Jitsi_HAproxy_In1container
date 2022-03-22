@@ -1,0 +1,16 @@
+---
+
+    - name: №5 Enable appropriate apache2 modules
+      apache2_module:
+        state: present
+        name: "{{ item }}"
+      loop: "{{ modules }}"
+      vars:
+        modules:
+          - ssl
+          - proxy
+          - proxy_http
+          - include
+          - headers
+          - proxy_wstunnel
+          - rewrite

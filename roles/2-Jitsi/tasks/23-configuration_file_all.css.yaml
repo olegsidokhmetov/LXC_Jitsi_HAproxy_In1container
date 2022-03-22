@@ -1,0 +1,14 @@
+---
+
+    - name: №23 Configuration of file "all.css". Insert a line at the end of the file.
+      lineinfile:
+        dest: /usr/share/jitsi-meet/css/all.css
+        line: '{{ item }}'
+      with_items:
+        - '.welcome .header .header-text-title{visibility: hidden;}'
+        - '.welcome .header .header-text-title::after{content: "VideoReunión QUERSYSTEM";visibility: visible; display: block;}'
+        - '.welcome .header .header-text-subtitle{visibility: hidden;}'
+        - '.welcome .welcome-watermark .watermark.leftwatermark{width: 140px; height: 70px;}'
+        - '//.welcome .header{height: 530px;}'
+        - '//.welcome .header{background-size: 100% 100%;}'
+        - '.watermark { width: 140px; height: 70px;}'

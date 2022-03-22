@@ -1,0 +1,8 @@
+
+
+org.jitsi.videobridge.xmpp.user.shard-{siguiente_shard}.HOSTNAME={url_jitsi}
+org.jitsi.videobridge.xmpp.user.shard-{siguiente_shard}.DOMAIN=auth.js.{url_jitsi}
+org.jitsi.videobridge.xmpp.user.shard-{siguiente_shard}.USERNAME=jvb
+org.jitsi.videobridge.xmpp.user.shard-{siguiente_shard}.PASSWORD={contraseña}
+org.jitsi.videobridge.xmpp.user.shard-{siguiente_shard}.MUC_JIDS=JvbBrewery@internal.auth.{url_jitsi}
+org.jitsi.videobridge.xmpp.user.shard-{siguiente_shard}.MUC_NICKNAME={jvbx}

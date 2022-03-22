@@ -1,0 +1,6 @@
+---
+
+- name: 3.1-Add haproxy Repository
+  shell: |
+     ppa:vbernat/haproxy-2.5
+     apt-get update

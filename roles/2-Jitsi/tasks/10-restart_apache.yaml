@@ -1,0 +1,6 @@
+---
+
+    - name: №10 Restart apache service.
+      systemd:
+        name: apache2
+        state: restarted

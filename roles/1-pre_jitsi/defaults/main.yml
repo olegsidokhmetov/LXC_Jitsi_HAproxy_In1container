@@ -1,0 +1,25 @@
+---
+# defaults file for 1-pre_jitsi
+
+#Configuration if you will be use local images with "shell or command" Ansible module
+lxc_local_source: "local"
+#Nombre de la plantilla
+lxc_CT_TMP: js-template
+
+#Variables for "lxd_container" ansible module
+lxc_container_distro: "20.04/amd64"
+lxc_image_name: ubuntu
+lxc_image_source: "https://cloud-images.ubuntu.com/releases"
+lxc_lxd_host: ""
+lxc_lxd_port: "8443"
+
+#Proxy for correct work of "apt" module in LXC container
+proxy_apt: http://10.128.64.250:3128
+proxy_https_apt: https://10.128.64.250:3128
+
+##Proxy for containers
+http_proxy: http://10.128.64.250:3128
+https_proxy: http://10.128.64.250:3128
+
+##Path of /etc/environment 
+env_path: /etc/environment

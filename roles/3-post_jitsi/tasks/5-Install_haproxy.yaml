@@ -1,0 +1,15 @@
+- name: 5-Install haproxy
+  ansible.builtin.package:
+    name: haproxy
+    state: present
+
+- name: 5.1-Get HAProxy version.
+  command: haproxy -v
+  register: haproxy_branch
+
+- debug:
+    msg: "{{ haproxy_branch.stdout_lines }}"
+
+- name: 5.2-Pause for 5 seconds to check correct branch of HAproxy
+  pause:
+     seconds: 5

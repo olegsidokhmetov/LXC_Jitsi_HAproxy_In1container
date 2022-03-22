@@ -1,0 +1,15 @@
+---
+
+- hosts: devel-lxd01
+  gather_facts: true
+  become: true
+
+  tasks:
+
+    - name: 3.1.1-Check configuration of proxy in file {{ env_path }}
+      shell: if cat /etc/environment | grep -qi "proxy"; then echo "proxy configured"; fi
+      register: proxy
+
+    - name: Print result
+      debug:
+        msg: "/etc/environment: {{ proxy.stdout }}"

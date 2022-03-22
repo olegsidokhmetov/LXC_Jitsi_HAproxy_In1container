@@ -1,0 +1,9 @@
+---
+
+    - name: №21 Configuración Videobridge. Insert a line at the end of a file.
+      lineinfile: 
+        dest: /etc/jitsi/videobridge/sip-communicator.properties
+        line: '{{ item }}'
+      with_items:
+        - 'org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS={{ ansible_host }}'
+        - 'org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS={{ NAT_HARVESTER_IP }}'

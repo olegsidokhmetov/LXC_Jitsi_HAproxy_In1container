@@ -1,0 +1,12 @@
+---
+
+    - name: №27 Restart multiple services in a loop
+      service:
+        name: "{{ item }}"
+        state: restarted
+        enabled: true
+      become: true
+      loop:
+        - prosody.service
+        - jicofo.service
+        - jitsi-videobridge2.service

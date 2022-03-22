@@ -1,0 +1,27 @@
+---
+- hosts: jitsi
+  become: true
+  tasks:
+
+    - name: Next number of shard script
+      shell: expr 1 + $(grep 'shard-' /etc/jitsi/videobridge/sip-communicator.properties | awk -F '.' '{print $6}' |uniq | sort | tail -n1 | cut -d '-' -f2 | xargs printf "%d" )
+      register: siguiente_shard
+
+    - debug:
+        msg: "{{ siguiente_shard.stdout }}"
+
+    - replace:
+        path: /etc/jitsi/videobridge/sip-communicator.properties
+        regexp: 'shard-siguiente'
+        replace: 'shard-{{ siguiente_shard.stdout }}'
+
+    # - name: Echo my_env_var
+    #   shell: echo $siguiente_shard
+      
+    # - debug:
+    #     msg: echo.stdout
+    #   environment:
+    #     siguiente_shard: siguiente_shard.stdout
+    #   register: siguiente_shard
+    # - debug:
+    #     var: "{{ siguiente_shard.stdout }}"

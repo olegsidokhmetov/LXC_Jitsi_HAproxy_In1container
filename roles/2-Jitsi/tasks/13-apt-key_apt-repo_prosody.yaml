@@ -1,0 +1,13 @@
+---
+
+    - name: №13 "Add apt-key for prosody"
+      apt_key:
+        url: https://prosody.im/files/prosody-debian-packages.key
+        state: present
+      environment:                                                       #Use this, if you have proxy
+        http_proxy: "{{ http_proxy }}"
+        https_proxy: "{{ https_proxy }}"
+
+    - apt_repository:
+        repo: "deb http://packages.prosody.im/debian {{ ansible_distribution_release }} main"
+        state: present

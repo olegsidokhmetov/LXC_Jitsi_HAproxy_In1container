@@ -1,0 +1,36 @@
+- name: 6-Edit file haproxy.cfg in folder {{ haproxy_cfg }}. Replace "mode http" y "option httplog" 
+  replace:
+    path: "{{ item.path }}"
+    regexp: "{{ item.regexp }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - {path: "{{ haproxy_cfg }}", regexp: "mode	http", replace: "mode    tcp"}
+    - {path: "{{ haproxy_cfg }}", regexp: "option	httplog", replace: "option  tcplog"}
+
+- name: 6.1-Add config block "Frontend" in {{ haproxy_cfg }}
+  blockinfile:
+    dest: "{{ haproxy_cfg }}"
+    insertafter: EOF
+    block: |
+
+      ### Frontend
+
+              frontend fe_https
+                  bind    0.0.0.0:443  name HTTP-443 transparent
+                  tcp-request   inspect-delay 5s
+                  tcp-request   content accept if { req_ssl_hello_type 1 }
+                  acl     {{ server_name_01 }} req_ssl_sni -i {{ domain_server01 }}
+                  acl     {{ server_name_02 }} req_ssl_sni -i {{ domain_server02 }}
+                  use_backend   be_server01 if {{ server_name_01 }}
+                  use_backend   be_server02 if {{ server_name_02 }}
+                  use_backend   be_https
+
+- lineinfile:
+    dest: "{{ haproxy_cfg }}"
+    state: absent
+    regexp: "# BEGIN ANSIBLE MANAGED BLOCK"
+
+- lineinfile:
+    dest: "{{ haproxy_cfg }}"
+    state: absent
+    regexp: "# END ANSIBLE MANAGED BLOCK"

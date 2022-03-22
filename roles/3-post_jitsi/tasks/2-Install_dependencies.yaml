@@ -1,0 +1,6 @@
+---
+
+- name: 2-Install --no-install-recommends software-properties-common
+  apt:
+    name: software-properties-common
+    install_recommends: no

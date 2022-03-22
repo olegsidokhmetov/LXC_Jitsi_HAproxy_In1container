@@ -1,0 +1,21 @@
+- name: 6.2-Add config block "Frontend" https traffic in {{ haproxy_cfg }}
+  blockinfile:
+    dest: "{{ haproxy_cfg }}"
+    insertafter: EOF
+    block: |
+    
+      ### Frontend
+
+              frontend fe_https
+                  bind    0.0.0.0:443  name HTTP-443 transparent
+                  use_backend   be_https
+
+- lineinfile:
+    dest: "{{ haproxy_cfg }}"
+    state: absent
+    regexp: "# BEGIN ANSIBLE MANAGED BLOCK"
+
+- lineinfile:
+    dest: "{{ haproxy_cfg }}"
+    state: absent
+    regexp: "# END ANSIBLE MANAGED BLOCK"

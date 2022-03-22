@@ -1,0 +1,16 @@
+! Configuration File for keepalived
+
+vrrp_instance VI_{{ VRRP1 }} {
+    state BACKUP
+    interface {{ keepalived_interface }}
+    virtual_router_id {{ Virtual_id_51 }}
+    priority 200
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass pass
+    }
+    virtual_ipaddress {
+        {{ item.ipkeep }}
+    }
+}

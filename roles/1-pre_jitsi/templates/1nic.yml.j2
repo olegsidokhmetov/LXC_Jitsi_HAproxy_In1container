@@ -1,0 +1,13 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    {{ item.ethernet_eth }}:
+      addresses:
+        - {{ item.ctip }}/{{ item.mask }}
+      gateway4: {{ item.ctgw }}
+      mtu: 1400
+      nameservers:
+          addresses:
+          - {{ lxc_CT_DNS1 }}
+          - {{ lxc_CT_DNS2 }}

@@ -1,0 +1,82 @@
+---
+
+- name: №1 Update apt cache & Upgrade all apt packages
+  import_tasks: 1-update_upgrade.yaml
+
+- name: №2 Install dependencies
+  import_tasks: 2-install dependencies.yaml
+
+- name: №3 Install services
+  import_tasks: 3-install_services.yaml
+
+- name: №4 Install gnupg2
+  import_tasks: 4-install_gnupg2.yaml
+
+- name: №5 Enable appropriate apache2 modules
+  import_tasks: 5-enable_apache2_modules.yaml
+
+- name: №6 Create new configuration file "js.quersys.com.conf"
+  import_tasks: 6-create_file_js.quersys.com.conf.yaml
+
+- name: №7 Create symbolic links "js.quersys.com.conf"
+  import_tasks: 7-create_symbolic_links_js.quersys.com.conf.yaml
+
+- name: №8 Copy cert file js.quersys.com.crt & Copy key file js.quersys.com.key
+  import_tasks: 8-copy_cert_and_key_file.yaml
+
+- name: №9 Generate a key pair for a Shibboleth sp-signing & Generate a key pair for a Shibboleth sp-encrypt
+  import_tasks: 9-generate_key_pair_Shibboleth.yaml
+
+- name: №10 Restart apache service
+  import_tasks: 10-restart_apache.yaml
+
+- name: №11 Create new configuration of shibboleth
+  import_tasks: 11-new_configuration_shibboleth.yaml
+
+- name: №12 Restart shibd service.
+  import_tasks: 12-restart_shibd_service.yaml
+
+- name: №13 Add apt-key for prosody
+  import_tasks: 13-apt-key_apt-repo_prosody.yaml
+
+- name: №14 Add apt-key for jitsi
+  import_tasks: 14-apt-key_apt-repo_jitsi.yaml
+
+- name: №15 Update and upgrade packages
+  import_tasks: 15-update_upgrade.yaml
+
+- name: №16 Configure jitsi-meet package (GUI shell)
+  import_tasks: 16-GUI_dialog_install_jitsi.yaml
+
+- name: №17 Install jitsi-meet
+  import_tasks: 17-install_jitsi-meet.yaml
+
+- name: №18 Install jitsi-prosody
+  import_tasks: 18-configuration_prosody.yaml
+
+- name: №19 Permissions for "localhost.cnf" & "localhost.crt"
+  import_tasks: 19-change_permission_localhost.cnf_localhost.crt_localhost.key.yaml
+
+- name: №20 Copy file quersystem-logo.png
+  import_tasks: 20-copy_image_logo.png.yaml
+
+- name: №21 Configuration Videobridge. Insert a line at the end of a file.
+  import_tasks: 21-configuración_Videobridge_sip.comminicator.yaml
+
+- name: №22 Create new configurationin file "js.quersys.com-config.js"
+  import_tasks: 22-new_configurationin_js.quersys.com-config.js.yaml
+
+- name: №23 Configuration of file "all.css". Insert a line at the end of a file.
+  import_tasks: 23-configuration_file_all.css.yaml
+
+- name: №24 Ansible multiple replace in file "interface_config.js"
+  import_tasks: 24-replace_data_file_interface_config.js.yaml
+
+- name: №25 set of autentication shibboleth
+  import_tasks: 25-autentication_shibboleth.yaml
+
+- name: №26 Next number of shard (shard-1, shard-2 etc)script and edit sip-communicator file
+  import_tasks: 26-next_number_of_shard_script_and_edit_sip-communicator.yaml
+
+- name: №27 Restart multiple services in a loop
+  import_tasks: 27-restart_multiple_services.yaml

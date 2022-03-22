@@ -1,0 +1,29 @@
+---
+
+    - lineinfile:
+        dest: /etc/prosody/prosody.cfg.lua
+        state: absent
+        regexp: "admins = { }"
+
+    - name: №18 Configuration prosody
+      blockinfile:
+        dest: /etc/prosody/prosody.cfg.lua
+        insertafter: '-- Example: admins = { "user1@example.com", "user2@example.net" }'
+        block: |
+          admins = { }
+          https_ports = { }
+          bosh_ports = { "http-bind" }
+          component_ports = { 5347 }
+          component_interface = "0.0.0.0"
+          network_backend = "epoll"
+          consider_bosh_secure = true
+
+    - lineinfile:
+        dest: /etc/prosody/prosody.cfg.lua
+        state: absent
+        regexp: "# BEGIN ANSIBLE MANAGED BLOCK"
+
+    - lineinfile:
+        dest: /etc/prosody/prosody.cfg.lua
+        state: absent
+        regexp: "# END ANSIBLE MANAGED BLOCK"

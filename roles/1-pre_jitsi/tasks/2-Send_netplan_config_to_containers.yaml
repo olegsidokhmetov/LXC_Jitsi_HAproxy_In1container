@@ -1,0 +1,35 @@
+---
+### AÑADIR WITH_ITEMS (item.name item.ctip item.ctgw item.mask)
+
+- name: 2-Create directory on host for container
+  file:
+    path: /tmp/{{ item.name }}
+    state: directory
+  with_items: "{{ containers }}"
+
+- name: 2.1-Using template to copy a file from host folder /tmp/ with name of file netplan to LXC container
+  ansible.builtin.template:
+    src: /etc/ansible/roles/1-pre_jitsi/templates/{{ item.nics }}.yml.j2
+    dest: /tmp/{{ item.name }}/{{ item.file_netplan }}
+    owner: "{{ owner_id }}"
+    group: "{{ group_id }}"
+    mode: '0644'
+  with_items: "{{ containers }}"
+
+- name: 2.2-Rename network file of netplan to *.old
+  shell: lxc exec "{{ item.name }}" -- sh -c "mv /etc/netplan/{{ item.file_netplan }} /etc/netplan/{{ item.file_netplan }}_old"
+  with_items: "{{ containers }}"
+
+- name: Pause for 2 seconds
+  pause:
+    seconds : 2
+
+- name: 2.3-Copy new IP to container LXC
+  shell: |
+    lxc file push /tmp/{{ item.name }}/{{ item.file_netplan }} local:{{ item.name }}/etc/netplan/{{ item.file_netplan }}
+    lxc exec {{ item.name }} -- sh -c "netplan apply"
+  with_items: "{{ containers }}"
+
+- name: Pause for 5 seconds
+  pause:
+    seconds : 5

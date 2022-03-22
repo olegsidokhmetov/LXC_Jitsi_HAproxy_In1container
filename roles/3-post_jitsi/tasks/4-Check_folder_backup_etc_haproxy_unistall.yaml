@@ -1,0 +1,20 @@
+---
+
+- name: 4-Get path stat to be able to perform check in the following task for make bakup folder {{ haproxy_default_path }}
+  stat:
+    path: "{{ haproxy_default_path }}"
+  register: file
+
+- name: 4.1-Copy path {{ haproxy_default_path }} if it exists to .old
+  copy:
+     src: "{{ haproxy_default_path }}"
+     dest: "{{ haproxy_default_path }}.old"
+     remote_src: true
+  when: file.stat.exists
+
+- name: 4.2-Ensure haproxy is installed and autoremove unneeded deps
+  apt:
+    name: haproxy
+    state: absent
+    autoremove: true
+  become: true

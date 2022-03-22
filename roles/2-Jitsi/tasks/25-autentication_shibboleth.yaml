@@ -1,0 +1,25 @@
+---
+
+    - name: №25 Autentication shibboleth
+      blockinfile:
+        dest: /etc/jitsi/jicofo/jicofo.conf
+        insertafter: 'jicofo {'
+        block: |
+          authentication {
+            enabled = false
+            type = SHIBBOLETH
+            login-url = "shibboleth:default"
+            logout-url = "shibboleth:default"
+            authentication-lifetime = 24 hours
+            enable-auto-login = true
+          }
+
+    - lineinfile:
+        dest: /etc/jitsi/jicofo/jicofo.conf
+        state: absent
+        regexp: "# BEGIN ANSIBLE MANAGED BLOCK"
+
+    - lineinfile:
+        dest: /etc/jitsi/jicofo/jicofo.conf
+        state: absent
+        regexp: "# END ANSIBLE MANAGED BLOCK"

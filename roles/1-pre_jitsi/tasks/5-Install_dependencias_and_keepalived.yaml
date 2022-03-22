@@ -1,0 +1,24 @@
+---
+
+- name: 5-Install dependencies 
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - gcc
+      - libnl-3-dev
+      - libssl-dev
+      - libnl-genl-3-dev 
+      - libsnmp-dev
+      - curl
+      - software-properties-common
+  delegate_to: "{{ item.name }}"
+  with_items: "{{ containers }}"
+
+# - name: 5.1-Install keepalived
+#   apt:
+#     name: keepalived
+#     state: present
+#   delegate_to: "{{ item.name }}"             #was "{{ item.ctip }}"
+#   with_items: "{{ containers }}"

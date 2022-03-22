@@ -1,0 +1,16 @@
+---
+
+- name: 3.1.1-Add proxy setiings in LXC container
+  shell: |
+    lxc config set {{ item.name }} environment.http_proxy={{ http_proxy }}
+    lxc config set {{ item.name }} environment.https_proxy={{ https_proxy }}
+  with_items: "{{ containers }}"
+
+- name: 3.1.2-Create new configurationin for the global proxy settings in file "/etc/apt/apt.conf"
+  copy:
+    dest: "/etc/apt/apt.conf" 
+    content: |
+       Acquire::http::proxy "{{ proxy_apt }}";
+       Acquire::https::proxy "{{ proxy_apt }}";
+  delegate_to: "{{ item.name }}"
+  with_items: "{{ containers }}"

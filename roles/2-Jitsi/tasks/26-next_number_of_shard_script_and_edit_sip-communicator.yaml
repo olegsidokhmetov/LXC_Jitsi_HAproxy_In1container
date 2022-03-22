@@ -1,0 +1,70 @@
+---
+
+    - name: №26 Next number of shard script
+      shell: expr 1 + $(grep 'shard-' /etc/jitsi/videobridge/sip-communicator.properties | awk -F '.' '{print $6}' |uniq | sort -m | tail -n1 | cut -d '-' -f2 | xargs printf "%d" )
+      register: siguiente_shard
+
+    - debug:
+        msg: "{{ siguiente_shard.stdout }}"
+
+    - name: Obtener pasword videobridge
+      shell: grep PASSWORD /etc/jitsi/videobridge/sip-communicator.properties | cut -d '=' -f2
+      register: MYPASSWORD
+
+    - debug:
+        msg: "{{ MYPASSWORD.stdout }}"
+
+    - name: №26 Configuration sip-communicator.properties
+      blockinfile:
+        dest: /etc/jitsi/videobridge/sip-communicator.properties
+        block: |
+          org.jitsi.videobridge.xmpp.user.shard-siguiente.HOSTNAME={{ url_jitsi_domain }}
+          org.jitsi.videobridge.xmpp.user.shard-siguiente.DOMAIN=auth.{{ url_jitsi_domain }}
+          org.jitsi.videobridge.xmpp.user.shard-siguiente.USERNAME={{ USERNAME }}
+          org.jitsi.videobridge.xmpp.user.shard-siguiente.PASSWORD={ PASSWORD }
+          org.jitsi.videobridge.xmpp.user.shard-siguiente.MUC_JIDS=JvbBrewery@internal.auth.{{ url_jitsi_domain }}
+          org.jitsi.videobridge.xmpp.user.shard-siguiente.MUC_NICKNAME={{ item.host }}
+          org.jitsi.videobridge.xmpp.user.shard-siguiente.DISABLE_TCP_HARVESTER=true
+          org.jitsi.videobridge.xmpp.user.shard-siguiente.DISABLE_CERTIFICATE_VERIFICATION=true
+#     delegate_to: "{{ item.host }}"
+      with_items: "{{ jvbhost }}"
+
+    - replace:
+        path: /etc/jitsi/videobridge/sip-communicator.properties
+        regexp: 'shard-siguiente'
+        replace: 'shard-{{ siguiente_shard.stdout }}'
+      # delegate_to: "{{ item.host }}"
+      # with_items:
+      #   - "{{ jvbhost }}"
+
+    - replace:
+        path: /etc/jitsi/videobridge/sip-communicator.properties
+        regexp: '{ PASSWORD }'
+        replace: '{{MYPASSWORD.stdout}}'
+      # delegate_to: "{{ item.host }}"
+      # with_items:
+      #   - "{{ jvbhost }}"
+
+    - replace:
+        path: /etc/jitsi/videobridge/sip-communicator.properties
+        regexp: '^(.*)# BEGIN ANSIBLE MANAGED BLOCK(.*)$'
+        replace: '#'
+      # delegate_to: "{{ item.host }}"
+      # with_items:
+      #   - "{{ jvbhost }}"
+
+    - lineinfile:
+        dest: /etc/jitsi/videobridge/sip-communicator.properties
+        state: absent
+        regexp: "# END ANSIBLE MANAGED BLOCK"
+      # delegate_to: "{{ item.host }}"
+      # with_items:
+      #   - "{{ jvbhost }}"
+
+    - lineinfile:
+        path: /etc/hosts
+        state: present
+        line: '{{ line_for_videobridge_hosts }}'
+      # delegate_to: "{{ item.host }}"
+      # with_items:
+      #   - "{{ jvbhost }}"

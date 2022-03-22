@@ -1,0 +1,7 @@
+---
+
+    - name: №20 Copy files {{ url_jitsi_domain }}.png
+      copy:
+        src: /etc/ansible/roles/2-Jitsi/files/logo/{{ url_jitsi_domain }}.png
+        dest: /usr/share/jitsi-meet/images/watermark.png
+        remote_src: false

@@ -1,0 +1,13 @@
+---
+
+    - name: №24 Ansible multiple replace in file "interface_config.js"
+      replace:
+        path: "{{ item.path }}"
+        regexp: "{{ item.regexp }}"
+        replace: "{{ item.replace }}"
+      with_items:
+        - {path: '/usr/share/jitsi-meet/interface_config.js', regexp: "DEFAULT_LOCAL_DISPLAY_NAME: 'me',", replace: "DEFAULT_LOCAL_DISPLAY_NAME: 'Yo',"}
+        - {path: '/usr/share/jitsi-meet/interface_config.js', regexp: "DEFAULT_LOGO_URL: 'images/watermark.svg',", replace: "DEFAULT_LOGO_URL: 'images/watermark.png',"}
+        - {path: '/usr/share/jitsi-meet/interface_config.js', regexp: "DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',", replace: "DEFAULT_REMOTE_DISPLAY_NAME: 'Invitado',"}
+        - {path: '/usr/share/jitsi-meet/interface_config.js', regexp: "DEFAULT_WELCOME_PAGE_LOGO_URL: 'images/watermark.svg',", replace: "DEFAULT_WELCOME_PAGE_LOGO_URL: 'images/watermark.png',"}
+        - {path: '/usr/share/jitsi-meet/interface_config.js', regexp: "JITSI_WATERMARK_LINK: 'https://jitsi.org',", replace: "JITSI_WATERMARK_LINK: 'https://www.quersystem.com',"}

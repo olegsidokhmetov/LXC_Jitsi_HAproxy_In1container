@@ -1,0 +1,27 @@
+---
+
+- name: 3.-Checkout host ssh public key on the main host
+  shell: cat /root/.ssh/id_rsa.pub
+  register: ssh_pub_key
+  delegate_to: "{{ lxc_master_server }}"                                    #Host with file "id_rsa.pub"
+
+- debug:
+    msg: "{{ ssh_pub_key.stdout }}"
+
+- name: 3.1-Copy ssh public key to container
+  shell: |
+    lxc exec "{{ item.name }}" -- sh -c "echo {{ ssh_pub_key.stdout }} > /root/.ssh/authorized_keys"
+  with_items: "{{ containers }}"
+
+- name: Pause for 5 seconds
+  pause:
+    seconds : 5
+
+#if does not use it. you can get question when you will be to connect to containers
+# The authenticity of host 'xxx.xxx.xxx.xxx (xxx.xxx.xxx.xxx)' can't be established.
+# RSA key fingerprint is xx:yy:zz:....
+# Are you sure you want to continue connecting (yes/no)?
+- name: 3.2-Accept new ssh fingerprints to have connect to container
+  shell: ssh-keyscan -H {{ item.ctip }} >> /root/.ssh/known_hosts           #ssh-keyscan thi is tool to collect the available public keys of multiple numbers of hosts
+  with_items: "{{ containers }}"
+  delegate_to: "{{ lxc_master_server }}"                                    #Server with Ansible

@@ -1,0 +1,38 @@
+---
+
+- name: 1-Create LXD Container
+  shell: sudo lxc launch  {{ lxc_local_source }}:{{ lxc_CT_TMP }} {{ item.name }} -p {{ lxc_profiles_medium }} --target {{ item.node }}
+  with_items: '{{ containers }}'
+
+# - name: 1-Create LXD Container
+#   shell: sudo lxc launch  {{ lxc_image_name }}:{{ lxc_container_distro }} {{ item.name }} -p {{ lxc_profiles_medium }} --target {{ item.node }}
+#   with_items: '{{ containers }}'
+
+# - name: Create LXD Container
+#   become: True
+#   lxd_container:
+#     name: BuGaGa
+#     state: started
+#     ignore_volatile_options: true
+#     source:
+#       type: image
+#       mode: pull
+#       fingerprint: 9ccfebbd7807
+#       server: local
+#       target: "{{ item.node }}"
+#       profiles: "{{ lxc_profiles_medium }}"
+#   with_items: "{{ containers }}"
+#   delegate_to: "{{ item.node }}"
+
+# - name: Create LXD container
+#   lxd_container:
+#     name: new-container-1
+#     ignore_volatile_options: true
+#     state: started
+#     source:
+#       type: image
+#       mode: pull
+#       alias: js-template2
+#       fingerprint: 9ccfebbd7807
+#       profiles: ["default"]
+

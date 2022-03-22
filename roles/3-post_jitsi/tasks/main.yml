@@ -1,0 +1,25 @@
+---
+
+    - name: Update and Upgrade all packages on servers
+      import_tasks: 1-Update_upgrade.yaml
+
+    - name: Install --no-install-recommends software-properties-common
+      import_tasks: 2-Install_dependencies.yaml
+
+    - name: Add haproxy Repository
+      import_tasks: 3-Add_haproxy_Repository.yaml
+
+    - name: Check folder {{ haproxy_default_path }}, create backup and unistall haproxy
+      import_tasks: 4-Check_folder_backup_etc_haproxy_unistall.yaml
+
+    - name: Install haproxy
+      import_tasks: 5-Install_haproxy.yaml
+
+    - name: Edit config file haproxy.cfg in folder {{ haproxy_cfg }} in part of "Frontend"
+      import_tasks: 6-Edit_haproxy.cfg_Frontend.yaml
+
+    - name: Edit file haproxy.cfg in folder {{ haproxy_cfg }} for https traffic in part of "Frontend"
+      import_tasks: 6.2-Edit_haproxy.cfg_trafic_https_Frontend.yaml
+
+    - name: Edit file haproxy.cfg in folder {{ haproxy_cfg }} in part of "Backend"
+      import_tasks: 7-Edit_haproxy.cfg_Backend.yaml

@@ -1,0 +1,22 @@
+---
+
+    - name: Creating Cantainer
+      import_tasks: 1-Creating_container.yaml
+
+    - name: Send netplan config to LXC containers.
+      import_tasks: 2-Send_netplan_config_to_containers.yaml
+
+    - name: Check and copy ssh public key to LXC containers and add to /root/.ssh/known_hosts.
+      import_tasks: 3-Copy_ssh_to_container.yaml
+
+    - name: Adding proxy setiing in LXC container.
+      import_tasks: 3.1-Add_proxy_setiings_in_LXC_container.yaml
+
+    - name: Updates and upgrade OS.
+      import_tasks: 4-Update_upgrade_OS.yaml
+
+    - name: Install dependencias and software keepalived.
+      import_tasks: 5-Install_dependencias_and_keepalived.yaml
+
+    # - name: Configuration keepalived.
+    #   import_tasks: 6-Configuration_keepalived.yaml

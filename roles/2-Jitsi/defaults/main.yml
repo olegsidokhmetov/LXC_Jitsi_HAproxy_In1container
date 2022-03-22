@@ -1,0 +1,9 @@
+---
+
+jitsi_meet_ssl_cert_path: ssl/js-lavallduixo.quersys.com.crt         #Folder path /etc/ansible/roles/2-Jitsi/files/ssl
+jitsi_meet_ssl_key_path: ssl/js-lavallduixo.quersys.com.key          #Folder path /etc/ansible/roles/2-Jitsi/files/ssl
+jitsi_meet_watermark_file: logo/js-lavallduixo.quersys.com.png       #Folder path  /etc/ansible/roles/2-Jitsi/files/logo
+
+#Proxy for containers
+http_proxy: http://10.128.64.250:3128            #Empty proxy: http_proxy: ""
+https_proxy: http://10.128.64.250:3128           #Empty proxy: https_proxy: ""

@@ -1,0 +1,31 @@
+---
+
+    # Setting DIALOG START
+    - name: №16 "Configure jitsi-meet package"
+      debconf:
+        name: "jitsi-videobridge2"
+        question: "jitsi-videobridge/jvb-hostname"
+        vtype: "string"
+        value: "{{ url_jitsi_domain }}"
+
+    - name: №16 "Configure jitsi-meet package"
+      debconf:
+        name: "jitsi-meet-web-config"
+        question: "jitsi-meet/cert-choice"
+        vtype: "select"
+        value: "I want to use my own certificate"
+
+    - name: №16 "Configure jitsi-meet package"
+      debconf:
+        name: "jitsi-meet-web-config"
+        question: "cert-path-crt"
+        vtype: "string"
+        value: "etc/ssl/{{ url_jitsi_domain }}.key"
+
+    - name: №16 "Configure jitsi-meet package"
+      debconf:
+        name: "jitsi-meet-web-config"
+        question: "cert-path-key"
+        vtype: "string"
+        value: "/etc/ssl/{{ url_jitsi_domain }}.crt"
+    # Setting DIALOG end

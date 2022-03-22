@@ -1,0 +1,6 @@
+---
+
+    - name: №15 Update and upgrade packages
+      apt:
+        update_cache: 'True'
+        upgrade: 'True'

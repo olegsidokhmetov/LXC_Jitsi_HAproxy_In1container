@@ -1,0 +1,6 @@
+---
+
+- name: 1-Update and Upgrade all packages on servers
+  apt:
+    upgrade: yes
+    update_cache: yes  

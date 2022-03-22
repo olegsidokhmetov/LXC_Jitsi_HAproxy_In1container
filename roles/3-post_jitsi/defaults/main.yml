@@ -1,0 +1,26 @@
+---
+# defaults file for haproxy
+
+
+#haproxy
+haproxy_default_path:                            /etc/haproxy
+haproxy_cfg:                                     /etc/haproxy/haproxy.cfg
+haproxy_stable_file:                             /home/stable_not_stable.txt
+
+url:
+fe_name:
+be_name:
+src_port:
+dst_port:
+dst_host:
+mode:
+
+#Configuration file /etc/haproxy/haproxy.cfg
+domain_server01:                                 server01.domain.tld
+domain_server02:                                 server02.domain.tld
+server_name_01:                                  server01
+server_name_02:                                  server02
+
+##Proxy for containers
+http_proxy: http://10.128.64.250:3128            #Empty proxy: http_proxy: ""
+https_proxy: http://10.128.64.250:3128           #Empty proxy: https_proxy: ""

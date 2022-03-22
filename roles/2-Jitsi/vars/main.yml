@@ -1,0 +1,35 @@
+---
+
+jvbhost:     
+ - host: Lxc                                        #Añadir host JVB
+  # - host: jvb-sqs01
+  # - host: jvb-sqs02
+  # - host: jvb-sqs03
+
+
+#Solo descomentar y configurar en caso de instalacion nueva y activar desde task/main.yml 
+NAT_HARVESTER_IP: 95.216.101.211
+
+# Esto de momento no
+#url_jitsi_hostname: localhost                        #Nombre de hostname
+
+url_jitsi_domain: js-lavallduixo.quersys.com          #Nombre de domain
+line_for_videobridge_hosts: '172.16.3.67  js-lavallduixo.quersys.com'
+
+USERNAME: jvb                                         #Nombre de usario
+PASSWORD: 123456789                                   #Contaseña
+
+#Esto de momento no
+#MUC_JIDS: consorcidelaribera.com
+
+#Modificado para utilizar item.host (jvbhost)
+#MUC_NICKNAME: jvbx
+siguiente_shard: 1                                    #Numero de siguiente servidor
+
+# host_jvb:
+#  - host: jvb1
+#    file: asd
+#  - host: jvb2
+#    file: asd2 
+#  - host: jvb3
+#    file: asd3

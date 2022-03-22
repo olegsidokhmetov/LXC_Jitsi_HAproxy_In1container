@@ -1,0 +1,13 @@
+---
+
+    - name: №8 Copy cert file {{ url_jitsi_domain }}.crt
+      copy:
+        src: /etc/ansible/roles/2-Jitsi/files/ssl/{{ url_jitsi_domain }}.crt
+        dest: /etc/ssl/{{ url_jitsi_domain }}.crt
+        remote_src: false
+
+    - name: №8 Copy  key file {{ url_jitsi_domain }}.key
+      copy:
+        src: /etc/ansible/roles/2-Jitsi/files/ssl/{{ url_jitsi_domain }}.key
+        dest: /etc/ssl/{{ url_jitsi_domain }}.key
+        remote_src: false

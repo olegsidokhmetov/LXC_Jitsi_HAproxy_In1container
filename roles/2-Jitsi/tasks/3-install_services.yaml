@@ -1,0 +1,17 @@
+---
+
+    - name: №3 Install services
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: true
+      vars:
+        packages:
+          - apache2
+          - libmemcached11
+          - libodbc1
+          - shibboleth-sp2-common
+          - libshibsp8
+          - libshibsp-plugins
+          - shibboleth-sp2-utils
+          - libapache2-mod-shib2
