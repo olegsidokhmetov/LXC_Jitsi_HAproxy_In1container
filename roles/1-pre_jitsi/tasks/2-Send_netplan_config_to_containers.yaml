@@ -25,11 +25,17 @@
     seconds : 2
 
 - name: 2.3-Copy new IP to container LXC
-  shell: |
-    lxc file push /tmp/{{ item.name }}/{{ item.file_netplan }} local:{{ item.name }}/etc/netplan/{{ item.file_netplan }}
-    lxc exec {{ item.name }} -- sh -c "netplan apply"
+  shell: lxc file push /tmp/{{ item.name }}/{{ item.file_netplan }} local:{{ item.name }}/etc/netplan/{{ item.file_netplan }}
   with_items: "{{ containers }}"
 
 - name: Pause for 5 seconds
   pause:
     seconds : 5
+
+- name: 2.4-netplan apply
+  shell: lxc exec {{ item.name }} -- sh -c "netplan apply"
+  with_items: "{{ containers }}"
+
+- name: Pause for 10 seconds
+  pause:
+    seconds : 10

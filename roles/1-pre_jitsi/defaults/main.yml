@@ -1,6 +1,9 @@
 ---
 # defaults file for 1-pre_jitsi
 
+#Name for set in hosts
+name_of_hosts: Lxc
+
 #Configuration if you will be use local images with "shell or command" Ansible module
 lxc_local_source: "local"
 #Nombre de la plantilla

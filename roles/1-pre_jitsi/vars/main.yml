@@ -14,7 +14,7 @@
 
 #Container 1
 containers:
-  - name: QuerSystem
+  - name: Lxc
     nics: 1nic
     ctip: 192.172.201.211
     ctgw: 192.172.201.1
